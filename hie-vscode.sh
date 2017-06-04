@@ -1,6 +1,6 @@
 #!/bin/sh
 
-export HIE_SERVER_PATH=`which hie`
+export HIE_SERVER_PATH=`command -v hie`
 
 if [ "X" = "X$HIE_SERVER_PATH" ]; then
   echo "Content-Length: 100\r\n\r"

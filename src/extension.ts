@@ -27,18 +27,12 @@ export function activate(context: ExtensionContext) {
 	// The server is implemented in node
 	//let serverModule = context.asAbsolutePath(path.join('server', 'server.js'));
 	let serverPath = context.asAbsolutePath(path.join('.', 'hie-vscode.sh'));
-	let serverExe =  { command: serverPath}
 	// The debug options for the server
 	let debugOptions = { execArgv: ["--nolazy", "--debug=6004"] };
 	
 	// If the extension is launched in debug mode then the debug server options are used
 	// Otherwise the run options are used
-	let serverOptions: ServerOptions = {
-		//run : { module: serverModule, transport: TransportKind.ipc },
-		//debug: { module: serverModule, transport: TransportKind.ipc, options: debugOptions }
-		run : { command: serverPath },
-		debug: { command: serverPath }
-	} 
+	let serverOptions: ServerOptions = { command: "nix-shell", args: ["--pure", "--run", serverPath], options: { cwd: workspace.rootPath } }
 	
 	// Options to control the language client
 	let clientOptions: LanguageClientOptions = {
